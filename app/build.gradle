@@ -1,7 +1,10 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id "io.objectbox"//数据库
 }
+//添加数据库
+apply plugin: "io.objectbox"
 
 android {
     compileSdk 32
