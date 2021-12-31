@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.IBinder
 import com.emm.wifisendmanager.bean.TextBean
+import com.emm.wifisendmanager.database.DataBaseStore
 import com.koushikdutta.async.AsyncServer
 import com.koushikdutta.async.http.server.AsyncHttpServer
 import com.koushikdutta.async.http.server.HttpServerRequestCallback
@@ -25,6 +26,8 @@ class WebListenServer : Service() {
         const val ACTION_SEND_TEXT= "com.emm.wifisendmanager.action.SEND_TEXT"
 
         const val TYPEWRITE_TEXT ="typewrite_text"
+
+        const val PPORT = 45321
 
         fun start(context: Context) {
             val intent = Intent(context, WebListenServer::class.java)
@@ -53,8 +56,6 @@ class WebListenServer : Service() {
         AsyncServer()
     }
 
-    private val mSendTextList = ArrayList<TextBean>()
-
     override fun onBind(p0: Intent?): IBinder? {
         return null
     }
@@ -71,7 +72,8 @@ class WebListenServer : Service() {
                 ACTION_SEND_TEXT ->{//发送文字
                     val text = it.getStringExtra(TYPEWRITE_TEXT)
                     if(!text.isNullOrEmpty()){
-                        mSendTextList.add(TextBean("text",text))
+                        DataBaseStore.add(TextBean("text",text))
+                        setTextList()
                     }
                 }
             }
@@ -114,9 +116,16 @@ class WebListenServer : Service() {
             }
         })
 
+        setTextList()
+
+        server.listen(mAsyncServer,PPORT)
+    }
+
+    private fun setTextList(){
         server.get("/text", HttpServerRequestCallback { request, response ->
             val jsonArray = JSONArray()
-            mSendTextList.forEach {
+            val localList = DataBaseStore.query()
+            localList.forEach {
                 val jsonObject = JSONObject()
                 jsonObject.put("type",it.type)
                 jsonObject.put("text",it.text)
@@ -124,8 +133,6 @@ class WebListenServer : Service() {
             }
             response.send(jsonArray.toString())
         })
-
-        server.listen(mAsyncServer,45321)
     }
 
     override fun onDestroy() {

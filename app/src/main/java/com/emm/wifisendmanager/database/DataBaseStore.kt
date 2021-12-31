@@ -7,16 +7,17 @@ import com.emm.wifisendmanager.bean.TextStoreBean
 import io.objectbox.Box
 import io.objectbox.BoxStore
 
+/**
+ * @author:dengjie
+ * @time:2021/12/31
+ * @description:数据库管理操作
+ **/
 object DataBaseStore {
     //ObjectBox数据库操作类，用于初始化及数据库管理
     private var mBoxStore : BoxStore ?= null
 
     //管理TextStoreBean表的增删改
     private var mTextStoreBox : Box<TextStoreBean> ?= null
-
-    private val mIdWorker by lazy {
-
-    }
 
     //初始化数据库
     fun initDataBase(context: Context){
@@ -26,8 +27,12 @@ object DataBaseStore {
         mTextStoreBox =  mBoxStore?.boxFor(TextStoreBean::class.java)
     }
 
-    fun add(bean : TextBean){
-        mTextStoreBox?.put(TextStoreBean(type = bean.type,text = bean.text,timestamp = System.currentTimeMillis().toString()))
+    fun add(bean : TextBean) : Long{
+        return mTextStoreBox?.put(TextStoreBean(type = bean.type,text = bean.text,timestamp = "",timeMils = System.currentTimeMillis()))?:0
+    }
+
+    fun add(bean: TextStoreBean) : Long{
+       return mTextStoreBox?.put(bean)?:0
     }
 
     fun query() : List<TextStoreBean>{
