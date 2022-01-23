@@ -72,7 +72,7 @@ class WebListenServer : Service() {
                 ACTION_SEND_TEXT ->{//发送文字
                     val text = it.getStringExtra(TYPEWRITE_TEXT)
                     if(!text.isNullOrEmpty()){
-                        DataBaseStore.add(TextBean("text",text))
+//                        DataBaseStore.add(TextBean("text",text))
                         setTextList()
                     }
                 }
@@ -149,6 +149,7 @@ class WebListenServer : Service() {
     private fun getIndexContent(): String? {
         var bInputStream: BufferedInputStream? = null
         return try {
+            //获取index页面
             bInputStream = BufferedInputStream(assets.open("index.html"))
             val baos = ByteArrayOutputStream()
             var len = 0
