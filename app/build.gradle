@@ -45,4 +45,9 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     implementation 'com.koushikdutta.async:androidasync:2.+'
+
+    //kotlin协程Android支持  MainScope()
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+    //lifecycle
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
 }

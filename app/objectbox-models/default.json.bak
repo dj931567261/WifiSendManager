@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:9028263755273414735",
-      "lastPropertyId": "4:718436894998806450",
+      "lastPropertyId": "5:1406860132828685396",
       "name": "TextStoreBean",
       "properties": [
         {
@@ -27,6 +27,11 @@
         {
           "id": "4:718436894998806450",
           "name": "timestamp",
+          "type": 9
+        },
+        {
+          "id": "5:1406860132828685396",
+          "name": "timeMils",
           "type": 6
         }
       ],
@@ -39,9 +44,6 @@
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,
-  "newUidPool": [
-    1307741937345100503
-  ],
   "retiredEntityUids": [],
   "retiredIndexUids": [],
   "retiredPropertyUids": [],

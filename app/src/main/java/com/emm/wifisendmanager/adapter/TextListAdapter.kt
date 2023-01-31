@@ -1,13 +1,16 @@
 package com.emm.wifisendmanager.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.emm.wifisendmanager.R
+import com.emm.wifisendmanager.bean.ConstValue
 import com.emm.wifisendmanager.bean.TextStoreBean
 import com.emm.wifisendmanager.database.DataBaseStore
+import com.emm.wifisendmanager.util.FileUtil
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -46,12 +49,28 @@ class TextListAdapter : RecyclerView.Adapter<TextListAdapter.TextListViewHolder>
         val data = dataList[position]
         holder.tvText.text = data.text
         holder.tvTime.text = getTimestamp(data.timeMils)
+        val typeText = when(data.type){
+            ConstValue.APK -> "安装包"
+            ConstValue.TXT -> "文本"
+            ConstValue.JPG -> "图片"
+            ConstValue.JPEG -> "图片"
+            ConstValue.PNG -> "图片"
+            else -> "未知"
+        }
+        holder.tvType.text = typeText
         holder.btnDelete.setOnClickListener {
             DataBaseStore.delete(data.id)
             dataList.remove(data)
             notifyItemRemoved(holder.adapterPosition)
         }
+        holder.itemView.setOnClickListener {
+            Log.e("ATG","click")
+            itemClick?.invoke(data)
+        }
     }
+
+    var itemClick : ((TextStoreBean) -> Unit)?=null
+
 
     override fun getItemCount(): Int {
         return dataList.size
@@ -66,10 +85,12 @@ class TextListAdapter : RecyclerView.Adapter<TextListAdapter.TextListViewHolder>
         lateinit var tvText : TextView
         lateinit var btnDelete : TextView
         lateinit var tvTime : TextView
+        lateinit var tvType : TextView
         init {
             tvText = view.findViewById(R.id.tvText)
             btnDelete = view.findViewById(R.id.btnDelete)
             tvTime = view.findViewById(R.id.tvTime)
+            tvType = view.findViewById(R.id.tvType)
         }
     }
 }

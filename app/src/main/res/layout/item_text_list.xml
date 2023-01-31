@@ -2,10 +2,21 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:padding="5dp"
-    android:background="@color/grey"
+    android:background="#80ECEcEc"
     android:layout_marginBottom="5dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvType"
+        android:text="文本"
+        android:textColor="@color/black"
+        android:padding="3dp"
+        android:textSize="14sp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/shape_corners_4_stroke_grey"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
    <TextView
        android:id="@+id/tvText"
@@ -13,13 +24,14 @@
        android:layout_marginEnd="5dp"
        android:padding="5dp"
        android:layout_toLeftOf="@id/btnDelete"
+       android:layout_toRightOf="@id/tvType"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"/>
 
     <TextView
         android:id="@+id/btnDelete"
         android:textColor="@color/red"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:layout_alignParentEnd="true"
         android:background="@drawable/shape_corners_4_stroke_red"
         android:text="删除"

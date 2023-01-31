@@ -9,7 +9,11 @@ import io.objectbox.annotation.Uid
  * @time:2021/12/31
  * @description:实体类
  **/
-data class TextBean(val type : String,val text : String)
+data class TextBean(val type : String,val text : String){
+    fun isEmpty() : Boolean{
+        return type.isEmpty() || text.isEmpty()
+    }
+}
 
 //存入数据库的类
 @Entity

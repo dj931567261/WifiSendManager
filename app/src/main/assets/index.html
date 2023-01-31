@@ -1,33 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<title>Wifi Transport</title>
+	<link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8">
 	<script src="scripts/jquery-1.7.2.min.js" type="text/javascript"></script>
-	<script type="text/javascript">
-		$(function(){
-			var now = new Date();
-			var url = 'text' + '?' + now.getTime();
-            // 请求JSON数据
-            $.getJSON(url, function(data) {
-                // 编辑JSON数组
-                for (var i = 0; i < data.length; i++) {
-                    // 为每个对象生成一个li标签，添加到页面的ul中
-                    var $li = $('<li>' + data[i].text + '</li>');
-                    //if(data[i].type == ”url“){
-
-                    //}
-                    //$li.attr("text", data[i].text);
-                    $("#textlist").append($li);
-                }
-            });
-		})
-
-	</script>
+	<script src="scripts/lang.zh-Hans.js" type="text/javascript"></script>
+	<script src="scripts/transfer.js" type="text/javascript"></script>
+	<script src="scripts/ajaxfileupload.js" type="text/javascript"></script>
+	<script src="scripts/bitcandies.upload5.js" type="text/javascript"></script>
 </head>
-<h1>大一点的标题</h1>
 <body>
-	<div>
-		<ul id="textlist" style="float:center;"></ul>
+	<div id="wrapper">
+		<div id="content">
+			<div id="left">
+				<div id="logo">
+					<div class="wifi">WiFi APP安装</div>
+				</div>
+				<div id="upload_hint" class="hint"></div>
+				<div id="upload_form">
+					<div id="upload_button" />
+					<div class="file_upload_warper">
+						<input type="file" name="newfile" value="" id="newfile_0" class="file_upload" multiple="multiple" />
+					</div>
+				</div>
+			</div>
+			<div id="right_wrapper">
+				<div id="right">
+					<div class="content_title">您设备上的文件列表</div>
+					<div class="table_header">
+						<div class="filename column">文件名</div>
+						<div class="size column separator">大小</div>
+						<div class="operate column separator">操作</div>
+					</div>
+					<div class="files">
+					</div>
+				</div>
+			</div>
+			<div id="end_wrapper">
+				<div id="end">
+					<div class="text_title">文本信息列表</div>
+					<div class="text_table_header">
+						<div class="text column separator">文本</div>
+						<div class="operate column separator">操作</div>
+					</div>
+					<div id="textlist" class="files">
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>
